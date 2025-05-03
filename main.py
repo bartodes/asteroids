@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_WIDTH,SCREEN_HEIGHT,ASTEROID_MIN_RADIUS
+from constants import SCREEN_WIDTH,SCREEN_HEIGHT
 from player import Player,Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
@@ -41,7 +41,13 @@ def main():
         # Update game
         updatable.update(dt)
         
+        
         for asteroid in asteroids:
+            for bullet in shots:
+                if bullet.collides(asteroid):
+                    asteroid.split()
+                    bullet.kill()
+            
             if asteroid.collides(pj):
                 print("Game over!")
                 return
